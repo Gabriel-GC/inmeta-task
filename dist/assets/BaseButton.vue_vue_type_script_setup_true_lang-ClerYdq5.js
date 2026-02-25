@@ -1,0 +1,6 @@
+import{c as r,d as o,a as n,n as i,k as s,h as d,f as l,D as c,o as a}from"./index-DIGudNOf.js";/**
+ * @license lucide-vue-next v0.372.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const y=r("LoaderCircleIcon",[["path",{d:"M21 12a9 9 0 1 1-6.219-8.56",key:"13zald"}]]),m=["type","disabled"],f=o({__name:"BaseButton",props:{variant:{},type:{},disabled:{type:Boolean},loading:{type:Boolean}},setup(e){return(t,b)=>(a(),n("button",{type:e.type||"button",disabled:e.disabled||e.loading,class:i(["w-full md:w-auto font-bold py-2.5 px-6 rounded-full transition-all transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:scale-100 disabled:cursor-not-allowed text-center inline-flex items-center justify-center gap-2",{"bg-primary text-white shadow-soft hover:bg-primary-dark":e.variant==="primary"||!e.variant,"bg-secondary text-white shadow-soft hover:bg-secondary-dark":e.variant==="secondary","border-2 border-primary text-primary hover:bg-primary/5":e.variant==="outline","text-primary hover:bg-primary/5":e.variant==="ghost"}])},[e.loading?(a(),s(d(y),{key:0,class:"animate-spin",size:20})):l("",!0),c(t.$slots,"default")],10,m))}});export{f as _};
