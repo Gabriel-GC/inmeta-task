@@ -12,7 +12,7 @@ const myTrades = computed(() => {
 	return tradeStore.trades.filter(trade => trade.userId === authStore.user?.id);
 });
 
-const handleDelete = (tradeId: number) => {
+const handleDelete = (tradeId: string) => {
 	if (confirm('Tem certeza que deseja excluir esta proposta?')) {
 		tradeStore.deleteTrade(tradeId);
 	}
