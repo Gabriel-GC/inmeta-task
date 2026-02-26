@@ -153,7 +153,7 @@ const handleCreateTrade = async () => {
                 </div>
             </div>
 
-            <div class="p-6 border-t border-dark/5 bg-surface flex justify-between items-center">
+            <div class="text-dark/60 hover:text-primary transition-colors flex flex-col-reverse md:flex-row p-6 md:mt-0 items-center justify-center md:justify-start text-center md:text-left gap-6 text-sm font-medium">
                 <BaseButton v-if="step === 2" variant="outline" @click="step = 1">
                     Voltar
                 </BaseButton>
