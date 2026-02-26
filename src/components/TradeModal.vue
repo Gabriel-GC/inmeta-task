@@ -5,6 +5,7 @@ import { useTradeStore } from '@/store/trades';
 import CardItem from './CardItem.vue';
 import BaseButton from './BaseButton.vue';
 import { X, ArrowRightLeft, Search } from 'lucide-vue-next';
+import { toast } from 'vue-sonner';
 import type { Card } from '@/types';
 import { debounce } from 'lodash-es';
 
@@ -68,6 +69,7 @@ const handleCreateTrade = async () => {
 
     try {
         await tradeStore.createTrade({ cards });
+        toast.success('Proposta de troca criada com sucesso!');
         emit('close');
     } catch (err) {
         console.error(err);

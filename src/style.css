@@ -38,3 +38,46 @@ body {
 .custom-scrollbar::-webkit-scrollbar-thumb {
   @apply bg-dark/10 rounded-full hover:bg-dark/20 transition-colors;
 }
+
+[data-sonner-toaster] {
+  --normal-bg: rgba(255, 255, 255, 0.8) !important;
+  --normal-border: rgba(255, 255, 255, 0.2) !important;
+  --normal-text: #333333 !important;
+  --success-bg: rgba(0, 141, 70, 0.15) !important;
+  --success-border: rgba(0, 141, 70, 0.2) !important;
+  --success-text: #008d46 !important;
+  --error-bg: rgba(241, 90, 36, 0.15) !important;
+  --error-border: rgba(241, 90, 36, 0.2) !important;
+  --error-text: #f15a24 !important;
+}
+
+[data-sonner-toast] {
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 600 !important;
+  padding: 10px !important;
+  border-width: 1px !important;
+  position: fixed !important;
+  font-size: 8px !important;
+  top: 70px !important;
+  right: 20px !important;
+  align-items: center;
+  z-index: 99;
+  gap: 8px;
+  display: flex;
+}
+
+[data-sonner-toast][data-type="success"] {
+  background-color: var(--success-bg) !important;
+  border-color: var(--success-border) !important;
+  color: var(--success-text) !important;
+}
+
+[data-sonner-toast][data-type="error"] {
+  background-color: var(--error-bg) !important;
+  border-color: var(--error-border) !important;
+  color: var(--error-text) !important;
+}

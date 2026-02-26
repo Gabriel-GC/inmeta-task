@@ -11,7 +11,7 @@ const authStore = useAuthStore();
 
 <template>
     <div class="min-h-screen flex flex-col">
-        <Toaster position="top-right" rich-colors />
+        <Toaster position="top-right" rich-colors close-button expand />
         <Navbar />
         <main class="flex-grow container mx-auto px-2 py-2 mt-4">
             <RouterView v-slot="{ Component }">

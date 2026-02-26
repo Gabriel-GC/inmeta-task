@@ -9,6 +9,7 @@ import TradeCard from '@/components/TradeCard.vue';
 import CardSkeleton from '@/components/CardSkeleton.vue';
 import Skeleton from '@/components/Skeleton.vue';
 import { Plus, ArrowRightLeft, LayoutGrid, Info, ChevronDown } from 'lucide-vue-next';
+import { toast } from 'vue-sonner';
 
 const tradeStore = useTradeStore();
 const cardStore = useCardStore();
@@ -16,9 +17,14 @@ const authStore = useAuthStore();
 
 const isModalOpen = ref(false);
 
-const handleDelete = (tradeId: string | number) => {
+const handleDelete = async (tradeId: string | number) => {
     if (confirm('Tem certeza que deseja excluir esta proposta?')) {
-        tradeStore.deleteTrade(String(tradeId));
+        try {
+            await tradeStore.deleteTrade(String(tradeId));
+            toast.success('Proposta de troca removida com sucesso!');
+        } catch (err) {
+            toast.error('Erro ao excluir proposta. Tente novamente.');
+        }
     }
 };
 
@@ -91,9 +97,9 @@ onMounted(() => {
                 </h2>
                 <p class="text-white/80 font-medium">Faça login agora para gerenciar sua coleção e criar trocas!</p>
             </div>
-            <router-link to="/login"
+            <router-link to="/register"
                 class="relative z-10 px-8 py-4 bg-white text-primary font-black rounded-2xl hover:bg-surface shadow-md whitespace-nowrap">
-                Entrar na Conta
+                Criar conta
             </router-link>
             <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-white/10 rounded-full blur-3xl"></div>
         </div>

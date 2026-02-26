@@ -23,7 +23,7 @@ const toggleMenu = () => isMenuOpen.value = !isMenuOpen.value;
 
                 <router-link to="/" class="flex items-center gap-2">
                     <div
-                        class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white font-black text-xl">
+                        class="w-10 h-10 bg-primary rounded-2xl mx-auto flex items-center justify-center text-white font-black text-xl shadow-lg ring-4 ring-primary/10">
                         IM
                     </div>
                     <span class="text-xl font-extrabold tracking-tight">

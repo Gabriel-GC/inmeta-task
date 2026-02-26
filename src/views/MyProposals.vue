@@ -4,6 +4,7 @@ import { useTradeStore } from '@/store/trades';
 import { useAuthStore } from '@/store/auth';
 import TradeCard from '@/components/TradeCard.vue';
 import { ArrowRightLeft, Info, History } from 'lucide-vue-next';
+import { toast } from 'vue-sonner';
 
 const tradeStore = useTradeStore();
 const authStore = useAuthStore();
@@ -12,9 +13,14 @@ const myTrades = computed(() => {
 	return tradeStore.trades.filter(trade => trade.userId === authStore.user?.id);
 });
 
-const handleDelete = (tradeId: string) => {
+const handleDelete = async (tradeId: string) => {
 	if (confirm('Tem certeza que deseja excluir esta proposta?')) {
-		tradeStore.deleteTrade(tradeId);
+		try {
+			await tradeStore.deleteTrade(tradeId);
+			toast.success('Proposta de troca removida com sucesso!');
+		} catch (err) {
+			toast.error('Erro ao excluir proposta. Tente novamente.');
+		}
 	}
 };
 

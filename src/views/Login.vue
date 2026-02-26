@@ -25,7 +25,7 @@ const handleLogin = async () => {
 
     try {
         await authStore.login({ email: email.value, password: password.value });
-        toast.success('Bem-vindo de volta! Login realizado com sucesso.');
+        toast.success('Login realizado com sucesso.');
         router.push('/marketplace');
     } catch (err: any) {
         error.value = err.response?.data?.message || 'Falha ao entrar. Verifique suas credenciais.';
@@ -41,7 +41,7 @@ const handleLogin = async () => {
                     class="w-16 h-16 bg-primary rounded-2xl mx-auto flex items-center justify-center text-white font-black text-3xl shadow-lg ring-4 ring-primary/10">
                     IM
                 </div>
-                <h1 class="text-2xl font-extrabold text-dark pt-4">Bem-vindo de volta!</h1>
+                <h1 class="text-2xl font-extrabold text-dark pt-4">Bem-vindo!</h1>
                 <p class="text-dark/40 font-semibold uppercase tracking-widest text-[10px]">InMeta task
                 </p>
             </div>

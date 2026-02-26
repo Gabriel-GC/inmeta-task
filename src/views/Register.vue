@@ -37,7 +37,6 @@ const handleRegister = async () => {
         });
         toast.success('Conta criada com sucesso! Boas trocas.');
         await router.push('/marketplace');
-        window.location.reload();
     } catch (err: any) {
         error.value = err.response?.data?.message || 'Erro ao criar conta. Tente novamente.';
     }

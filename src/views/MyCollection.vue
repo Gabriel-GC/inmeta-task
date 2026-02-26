@@ -5,6 +5,7 @@ import CardItem from '@/components/CardItem.vue';
 import CardSkeleton from '@/components/CardSkeleton.vue';
 import BaseButton from '@/components/BaseButton.vue';
 import { Plus, Wallet, Sparkles, RefreshCcw, Search, Info, Trash2 } from 'lucide-vue-next';
+import { toast } from 'vue-sonner';
 
 const cardStore = useCardStore();
 const showAddForm = ref(false);
@@ -38,11 +39,13 @@ const handleAddCard = async () => {
     isAdding.value = true;
     try {
         await cardStore.addCard(selectedCardIds.value);
+        toast.success('Cartas adicionadas à sua coleção!');
         selectedCardIds.value = [];
         showAddForm.value = false;
         searchQuery.value = '';
     } catch (err) {
         console.error("Erro ao adicionar carta:", err);
+        toast.error('Erro ao adicionar carta. Tente novamente.');
     } finally {
         isAdding.value = false;
     }
@@ -52,8 +55,10 @@ const handleDeleteCard = async (card: any) => {
     if (!confirm(`Tem certeza que deseja excluir a carta "${card.name}"?`)) return;
     try {
         await cardStore.removeCard(card.id);
+        toast.success(`Carta "${card.name}" removida da coleção.`);
     } catch (err) {
         console.error("Erro ao excluir carta:", err);
+        toast.error('Erro ao remover carta. Tente novamente.');
     }
 };
 </script>

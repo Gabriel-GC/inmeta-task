@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import type { Trade } from '@/types';
 import { ArrowRightLeft, Trash2, User as UserIcon } from 'lucide-vue-next';
 
@@ -11,6 +12,8 @@ defineEmits(['delete']);
 
 const offering = props.trade.tradeCards.filter(c => c.type === 'OFFERING');
 const receiving = props.trade.tradeCards.filter(c => c.type === 'RECEIVING');
+
+const isMobileRow = computed(() => props.trade.tradeCards.length <= 2);
 </script>
 
 <template>
@@ -35,7 +38,11 @@ const receiving = props.trade.tradeCards.filter(c => c.type === 'RECEIVING');
             <span v-else class="text-[10px] font-bold text-dark/20 uppercase tracking-widest">Ativo</span>
         </div>
 
-        <div class="p-4 py-8 grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-center gap-4 h-full">
+        <div :class="[
+            'p-4 py-8 items-center gap-4 h-full',
+            isMobileRow ? 'flex flex-row' : 'flex flex-col',
+            'md:grid md:grid-cols-[1fr_auto_1fr]'
+        ]">
             <div class="flex flex-col align-start space-y-3 h-full">
                 <p class="text-xs font-black text-center text-primary uppercase tracking-[0.2em] mb-2 px-3">Oferece</p>
                 <div class="flex flex-wrap gap-2 justify-center overflow-y-auto max-h-[230px]">
@@ -49,8 +56,11 @@ const receiving = props.trade.tradeCards.filter(c => c.type === 'RECEIVING');
             </div>
 
             <div class="flex justify-center">
-                <div
-                    class="w-12 h-12 bg-surface rounded-full flex items-center justify-center text-dark/30 group-hover:text-primary border border-dark/5 rotate-90 md:rotate-0">
+                <div :class="[
+                    'w-12 h-12 bg-surface rounded-full flex items-center justify-center text-dark/30 group-hover:text-primary border border-dark/5',
+                    isMobileRow ? 'rotate-0' : 'rotate-90',
+                    'md:rotate-0'
+                ]">
                     <ArrowRightLeft :size="24" />
                 </div>
             </div>
