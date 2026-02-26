@@ -7,6 +7,8 @@ export const useCardStore = defineStore("cards", () => {
   const myCards = ref<Card[]>([]);
   const globalCards = ref<Card[]>([]);
   const isLoading = ref(false);
+  const currentPageGlobal = ref(1);
+  const hasMoreGlobal = ref(true);
 
   async function fetchMyCards() {
     isLoading.value = true;
@@ -17,11 +19,21 @@ export const useCardStore = defineStore("cards", () => {
     }
   }
 
-  async function fetchGlobalCards() {
+  async function fetchGlobalCards(reset = false) {
+    if (reset) {
+      globalCards.value = [];
+      currentPageGlobal.value = 1;
+      hasMoreGlobal.value = true;
+    }
+
+    if (!hasMoreGlobal.value || isLoading.value) return;
+
     isLoading.value = true;
     try {
-      const response = await cardService.listAll();
-      globalCards.value = response.list;
+      const response = await cardService.listAll(currentPageGlobal.value, 10);
+      globalCards.value = [...globalCards.value, ...response.list];
+      hasMoreGlobal.value = response.more;
+      currentPageGlobal.value++;
     } catch (err) {
       console.error("Erro ao carregar cartas globais:", err);
     } finally {
@@ -43,6 +55,7 @@ export const useCardStore = defineStore("cards", () => {
     myCards,
     globalCards,
     isLoading,
+    hasMoreGlobal,
     fetchMyCards,
     fetchGlobalCards,
     addCard,

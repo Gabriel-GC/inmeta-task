@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { useCardStore } from '@/store/cards';
 import CardItem from './CardItem.vue';
 import BaseButton from './BaseButton.vue';
@@ -11,6 +11,7 @@ const emit = defineEmits(['close']);
 const cardStore = useCardStore();
 const selectedCardIds = ref<string[]>([]);
 const searchQuery = ref('');
+const loader = ref<HTMLElement | null>(null);
 const isAdding = ref(false);
 
 const filteredGlobalCards = computed(() => {
@@ -29,8 +30,21 @@ const selectCard = (card: any) => {
     }
 };
 
+const observer = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting && !cardStore.isLoading && cardStore.hasMoreGlobal) {
+        cardStore.fetchGlobalCards();
+    }
+}, { threshold: 0.1 });
+
 onMounted(() => {
-    cardStore.fetchGlobalCards();
+    cardStore.fetchGlobalCards(true);
+    if (loader.value) {
+        observer.observe(loader.value);
+    }
+});
+
+onUnmounted(() => {
+    observer.disconnect();
 });
 
 const handleAddCard = async () => {
@@ -97,12 +111,23 @@ const handleAddCard = async () => {
                         </div>
                     </div>
 
-                    <div v-else class="py-20 text-center space-y-4 bg-dark/5 rounded-2xl">
+                    <div v-else-if="!cardStore.isLoading" class="py-20 text-center space-y-4 bg-dark/5 rounded-2xl">
                         <div
                             class="w-16 h-16 bg-white rounded-full mx-auto flex items-center justify-center text-dark/20 shadow-soft">
                             <Search :size="32" />
                         </div>
                         <p class="text-dark/40 font-semibold">Nenhuma carta encontrada para "{{ searchQuery }}"</p>
+                    </div>
+
+                    <!-- Sentinel for infinite scroll -->
+                    <div ref="loader" class="flex justify-center py-4 w-full">
+                        <div v-if="cardStore.isLoading" class="flex items-center gap-2 text-primary">
+                            <RefreshCcw :size="20" class="animate-spin" />
+                            <span class="text-xs font-semibold uppercase tracking-wider">Carregando mais...</span>
+                        </div>
+                        <div v-else-if="!cardStore.hasMoreGlobal && filteredGlobalCards.length > 0" class="text-dark/30 text-xs font-semibold uppercase tracking-wider">
+                            Fim da biblioteca
+                        </div>
                     </div>
                 </div>
             </div>
