@@ -11,7 +11,7 @@ const currentYear = new Date().getFullYear();
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                 <!-- Brand Section -->
-                <div class="space-y-6">
+                <div class="flex flex-col items-center md:items-start text-center md:text-left space-y-6">
                     <router-link to="/" class="flex items-center gap-2">
                         <div
                             class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white font-black text-xl">
@@ -22,9 +22,9 @@ const currentYear = new Date().getFullYear();
                         </span>
                     </router-link>
                     <p class="text-dark/60 text-sm leading-relaxed">
-                        A plataforma definitiva para troca e gerenciamento de ativos digitais. Segurança, transparência e facilidade em cada transação.
+                        A plataforma definitiva para troca e gerenciamento de ativos digitais. Segurança, transparência e facilidade em cada transação.<b>Confira os código:</b>
                     </p>
-                    <div class="flex items-center gap-4">
+                    <div class="flex items-center justify-center md:justify-start gap-4">
                         <a target="_blank" href="https://www.linkedin.com/in/gabriel-gon%C3%A7alves-cunha-37347b305/pt/" class="p-2 rounded-lg bg-dark/5 text-dark/60 hover:bg-primary/10 hover:text-primary transition-all">
                             <Linkedin :size="20" />
                         </a>
@@ -37,9 +37,9 @@ const currentYear = new Date().getFullYear();
                     </div>
                 </div>
 
-                <div>
+                <div class="flex flex-col items-center md:items-start text-center md:text-left">
                     <h3 class="font-bold text-dark mb-6">Marketplace</h3>
-                    <ul class="space-y-4">
+                    <ul class="space-y-4 flex flex-col items-center md:items-start">
                         <li>
                             <router-link to="/marketplace" class="text-dark/60 hover:text-primary transition-colors flex items-center gap-2 text-sm font-medium">
                                 <LayoutGrid :size="16" /> Explorar Items
@@ -60,9 +60,9 @@ const currentYear = new Date().getFullYear();
                     </ul>
                 </div>
 
-                <div>
+                <div class="flex flex-col items-center md:items-start text-center md:text-left">
                     <h3 class="font-bold text-dark mb-6">Conta</h3>
-                    <ul class="space-y-4">
+                    <ul class="space-y-4 flex flex-col items-center md:items-start">
                         <template v-if="authStore.isAuthenticated">
                             <li>
                                 <span class="text-dark/60 text-sm font-medium">Conectado como:</span>
@@ -84,9 +84,9 @@ const currentYear = new Date().getFullYear();
                     </ul>
                 </div>
 
-                <div>
+                <div class="flex flex-col items-center md:items-start text-center md:text-left">
                     <h3 class="font-bold text-dark mb-6">Suporte</h3>
-                    <ul class="space-y-1">
+                    <ul class="space-y-1 flex flex-col items-center md:items-start">
                         <li>
                             <p class="text-dark/60 text-sm">Precisa de ajuda?</p>
                             <a href="mailto:suporte@suporte.com" class="text-primary font-bold hover:underline text-sm">

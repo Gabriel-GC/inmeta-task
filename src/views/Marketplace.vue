@@ -92,13 +92,13 @@ onMounted(() => {
         <div v-if="!authStore.isAuthenticated"
             class="bg-gradient-to-r from-primary to-primary-dark p-8 rounded-3xl text-white shadow-lg flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden relative">
             <div class="relative z-10">
-                <h2 class="text-2xl font-black mb-2 flex items-center gap-2">
+                <h2 class="text-2xl font-black mb-2 flex items-center justify-center gap-2">
                     <ArrowRightLeft :size="24" /> Quer participar?
                 </h2>
-                <p class="text-white/80 font-medium">Faça login agora para gerenciar sua coleção e criar trocas!</p>
+                <p class="text-white/80 font-medium md:w-auto text-center">Crie sua conta agora para gerenciar sua coleção e criar trocas!</p>
             </div>
             <router-link to="/register"
-                class="relative z-10 px-8 py-4 bg-white text-primary font-black rounded-2xl hover:bg-surface shadow-md whitespace-nowrap">
+                class="relative z-10 w-full md:w-auto text-center px-8 py-4 bg-white text-primary font-black rounded-2xl hover:bg-surface shadow-md whitespace-nowrap">
                 Criar conta
             </router-link>
             <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-white/10 rounded-full blur-3xl"></div>
