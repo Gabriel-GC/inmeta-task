@@ -79,7 +79,7 @@ const handleCreateTrade = async () => {
 </script>
 
 <template>
-    <div class="fixed inset-0 z-[60] flex items-center justify-center p-4">
+    <div class="fixed inset-0 z-[60] flex items-center justify-center p-4 !mt-0">
         <div class="absolute inset-0 bg-dark/60 backdrop-blur-md" @click="$emit('close')"></div>
 
         <div
@@ -153,7 +153,7 @@ const handleCreateTrade = async () => {
                 </div>
             </div>
 
-            <div class="text-dark/60 hover:text-primary transition-colors flex flex-col-reverse md:flex-row p-6 md:mt-0 items-center justify-center md:justify-start text-center md:text-left gap-6 text-sm font-medium">
+            <div class="text-dark/60 hover:text-primary transition-colors flex flex-col-reverse md:flex-row p-6 items-center justify-center md:justify-between text-center md:text-left gap-6 text-sm font-medium">
                 <BaseButton v-if="step === 2" variant="outline" @click="step = 1">
                     Voltar
                 </BaseButton>
