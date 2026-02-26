@@ -1,3 +1,5 @@
+LINK DO PROJETO: https://marketplace-task.netlify.app/
+
 # InMeta Marketplace MVP
 
 Este é um MVP de um Marketplace de Troca de Cartas (TCG) desenvolvido como teste técnico. O projeto utiliza tecnologias modernas de front-end para garantir performance, tipagem estrita e uma experiência de usuário fluida, com design inspirado na identidade visual da **InMeta**.
