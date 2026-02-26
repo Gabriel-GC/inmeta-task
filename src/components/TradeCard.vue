@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import type { Trade } from '@/types';
-import { ArrowRightLeft, Trash2, User as UserIcon } from 'lucide-vue-next';
+import { computed, ref } from 'vue';
+import type { Trade, Card } from '@/types';
+import { ArrowRightLeft, Trash2, User as UserIcon, X } from 'lucide-vue-next';
 
 const props = defineProps<{
     trade: Trade;
@@ -14,6 +14,21 @@ const offering = props.trade.tradeCards.filter(c => c.type === 'OFFERING');
 const receiving = props.trade.tradeCards.filter(c => c.type === 'RECEIVING');
 
 const isMobileRow = computed(() => props.trade.tradeCards.length <= 2);
+
+const selectedCard = ref<Card | null>(null);
+const showPreview = ref(false);
+
+const openPreview = (card: Card) => {
+    selectedCard.value = card;
+    showPreview.value = true;
+};
+
+const closePreview = () => {
+    showPreview.value = false;
+    setTimeout(() => {
+        selectedCard.value = null;
+    }, 300); // Wait for transition
+};
 </script>
 
 <template>
@@ -46,9 +61,9 @@ const isMobileRow = computed(() => props.trade.tradeCards.length <= 2);
                 <p class="text-xs font-black text-center text-primary uppercase tracking-[0.2em] mb-2 px-3">Oferece</p>
                 <div class="flex flex-wrap gap-2 justify-center overflow-y-auto max-h-[230px]">
                     <div v-for="tc in offering" :key="tc.id"
-                        class="flex flex-col items-center w-[110px] gap-2 bg-primary/5 border border-primary/10 rounded-xl p-2 pr-2 tooltip"
-                        :title="tc.card.name">
-                        <img :src="tc.card.imageUrl" class="w-24 aspect-[2/3] object-cover shadow-sm" />
+                        class="flex flex-col items-center w-[110px] gap-2 bg-primary/5 border border-primary/10 rounded-xl p-2 pr-2 cursor-pointer hover:bg-primary/10 transition-colors"
+                        @click="openPreview(tc.card)" :title="tc.card.name">
+                        <img :src="tc.card.imageUrl" class="w-24 aspect-[2/3] object-cover shadow-sm " />
                         <span class="text-[8px] font-bold text-primary max-w-[80px] truncate">{{ tc.card.name }}</span>
                     </div>
                 </div>
@@ -68,9 +83,9 @@ const isMobileRow = computed(() => props.trade.tradeCards.length <= 2);
                 <p class="text-xs font-black text-center text-secondary uppercase tracking-[0.2em] mb-2 px-3">Deseja</p>
                 <div class="flex flex-wrap gap-2 justify-center overflow-y-auto max-h-[230px]">
                     <div v-for="tc in receiving" :key="tc.id"
-                        class="flex flex-col items-center w-[110px] gap-2 bg-secondary/5 border border-secondary/10 rounded-xl p-2 pr-2"
-                        :title="tc.card.name">
-                        <img :src="tc.card.imageUrl" class="w-24 aspect-[2/3] object-cover shadow-sm" />
+                        class="flex flex-col items-center w-[110px] gap-2 bg-secondary/5 border border-secondary/10 rounded-xl p-2 pr-2 cursor-pointer hover:bg-secondary/10 transition-colors"
+                        @click="openPreview(tc.card)" :title="tc.card.name">
+                        <img :src="tc.card.imageUrl" class="w-24 aspect-[2/3] object-cover shadow-sm " />
                         <span class="text-[8px] font-bold text-secondary max-w-[80px] truncate">{{ tc.card.name
                             }}</span>
                     </div>
@@ -78,4 +93,46 @@ const isMobileRow = computed(() => props.trade.tradeCards.length <= 2);
             </div>
         </div>
     </div>
+
+    <Teleport to="body">
+        <Transition name="fade">
+            <div v-if="showPreview"
+                class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-dark/80 backdrop-blur-sm"
+                @click.self="closePreview">
+                <Transition name="scale" appear>
+                    <div v-if="selectedCard"
+                        class="relative max-w-sm w-full bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col">
+
+                        <div class="aspect-[2/3] overflow-hidden bg-surface">
+                            <img :src="selectedCard.imageUrl" :alt="selectedCard.name"
+                                class="w-full h-full object-cover" />
+                        </div>
+                    </div>
+                </Transition>
+            </div>
+        </Transition>
+    </Teleport>
 </template>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.scale-enter-active,
+.scale-leave-active {
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.scale-enter-from,
+.scale-leave-to {
+    transform: scale(0.8);
+    opacity: 0;
+}
+</style>
