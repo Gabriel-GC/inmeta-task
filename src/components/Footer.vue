@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LayoutGrid, Wallet, ArrowRightLeft, Github, Twitter, Instagram } from 'lucide-vue-next';
+import { LayoutGrid, Wallet, ArrowRightLeft, Github, Twitter, Instagram, Linkedin, GithubIcon, Code } from 'lucide-vue-next';
 import { useAuthStore } from '@/store/auth';
 
 const authStore = useAuthStore();
@@ -25,19 +25,18 @@ const currentYear = new Date().getFullYear();
                         A plataforma definitiva para troca e gerenciamento de ativos digitais. Segurança, transparência e facilidade em cada transação.
                     </p>
                     <div class="flex items-center gap-4">
-                        <a href="#" class="p-2 rounded-lg bg-dark/5 text-dark/60 hover:bg-primary/10 hover:text-primary transition-all">
-                            <Github :size="20" />
+                        <a target="_blank" href="https://www.linkedin.com/in/gabriel-gon%C3%A7alves-cunha-37347b305/pt/" class="p-2 rounded-lg bg-dark/5 text-dark/60 hover:bg-primary/10 hover:text-primary transition-all">
+                            <Linkedin :size="20" />
                         </a>
-                        <a href="#" class="p-2 rounded-lg bg-dark/5 text-dark/60 hover:bg-primary/10 hover:text-primary transition-all">
-                            <Twitter :size="20" />
+                        <a target="_blank" href="https://github.com/Gabriel-GC" class="p-2 rounded-lg bg-dark/5 text-dark/60 hover:bg-primary/10 hover:text-primary transition-all">
+                            <GithubIcon :size="20" />
                         </a>
-                        <a href="#" class="p-2 rounded-lg bg-dark/5 text-dark/60 hover:bg-primary/10 hover:text-primary transition-all">
-                            <Instagram :size="20" />
+                        <a target="_blank" href="https://github.com/Gabriel-GC/inmeta-task" class="p-2 rounded-lg bg-dark/5 text-dark/60 hover:bg-primary/10 hover:text-primary transition-all">
+                            <Code :size="20" />
                         </a>
                     </div>
                 </div>
 
-                <!-- Marketplace Links -->
                 <div>
                     <h3 class="font-bold text-dark mb-6">Marketplace</h3>
                     <ul class="space-y-4">
@@ -61,7 +60,6 @@ const currentYear = new Date().getFullYear();
                     </ul>
                 </div>
 
-                <!-- Account Links -->
                 <div>
                     <h3 class="font-bold text-dark mb-6">Conta</h3>
                     <ul class="space-y-4">
@@ -86,7 +84,6 @@ const currentYear = new Date().getFullYear();
                     </ul>
                 </div>
 
-                <!-- Support -->
                 <div>
                     <h3 class="font-bold text-dark mb-6">Suporte</h3>
                     <ul class="space-y-1">
@@ -100,7 +97,6 @@ const currentYear = new Date().getFullYear();
                 </div>
             </div>
 
-            <!-- Bottom Section -->
             <div class="pt-8 border-t border-dark/5 flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="text-dark/40 text-sm font-medium">
                     &copy; {{ currentYear }} InMeta. Todos os direitos reservados.

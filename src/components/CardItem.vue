@@ -28,7 +28,7 @@ defineEmits(['select', 'delete']);
                 <Check v-if="selected" :size="16" />
                 <Plus v-else :size="16" />
             </div>
-            
+
         </div>
 
         <div class="p-4 bg-white border-t border-dark/5">

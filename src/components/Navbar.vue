@@ -3,6 +3,7 @@ import { useAuthStore } from '@/store/auth';
 import { LayoutGrid, Wallet, LogOut, Menu, X, ArrowRightLeft } from 'lucide-vue-next';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
+import { onClickOutside } from '@vueuse/core';
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -14,10 +15,15 @@ const handleLogout = () => {
 };
 
 const toggleMenu = () => isMenuOpen.value = !isMenuOpen.value;
+
+const navTarget = ref(null);
+onClickOutside(navTarget, () => {
+    isMenuOpen.value = false;
+});
 </script>
 
 <template>
-    <nav class="bg-white border-b border-dark/5 sticky top-0 z-50">
+    <nav ref="navTarget" class="bg-white border-b border-dark/5 sticky top-0 z-50">
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center h-20">
 

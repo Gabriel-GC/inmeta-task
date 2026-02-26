@@ -84,7 +84,6 @@ const handleCreateTrade = async () => {
 
         <div
             class="relative w-full max-w-4xl bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
-            <!-- Header -->
             <div class="p-6 border-b border-dark/5 flex justify-between items-center bg-surface">
                 <div>
                     <h2 class="text-xl font-extrabold text-dark flex items-center gap-2">
@@ -99,16 +98,13 @@ const handleCreateTrade = async () => {
                 </button>
             </div>
 
-            <!-- Content -->
             <div class="flex-grow overflow-y-auto p-6 relative">
-                <!-- Loading State -->
                 <div v-if="cardStore.isLoading && step === 1 && cardStore.myCards.length === 0" 
                     class="absolute inset-0 z-10 bg-white/80 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center">
                     <div class="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mb-4"></div>
                     <p class="text-dark/60 font-medium">Carregando sua coleção...</p>
                 </div>
 
-                <!-- Error State -->
                 <div v-if="error" class="mb-6 p-4 bg-red-50 border border-red-100 rounded-2xl flex items-center gap-3 text-red-600">
                     <span class="text-sm font-medium">{{ error }}</span>
                     <button @click="error = null" class="ml-auto p-1 hover:bg-red-100 rounded-lg">
@@ -116,7 +112,6 @@ const handleCreateTrade = async () => {
                     </button>
                 </div>
 
-                <!-- Step 1: Offering -->
                 <div v-if="step === 1" class="space-y-6">
                     <div class="bg-primary/5 p-4 rounded-2xl border border-primary/10">
                         <h3 class="font-bold text-primary flex items-center gap-2">
@@ -136,7 +131,6 @@ const handleCreateTrade = async () => {
                     </div>
                 </div>
 
-                <!-- Step 2: Receiving -->
                 <div v-else class="space-y-6">
                     <div class="bg-secondary/5 p-4 rounded-2xl border border-secondary/10">
                         <h3 class="font-bold text-secondary flex items-center gap-2">
@@ -145,7 +139,6 @@ const handleCreateTrade = async () => {
                         <p class="text-sm text-dark/70 mt-1">Selecione as cartas do mercado que deseja em troca.</p>
                     </div>
 
-                    <!-- Search -->
                     <div class="relative">
                         <Search class="absolute left-4 top-1/2 -translate-y-1/2 text-dark/30" :size="18" />
                         <input v-model="searchTerm" type="text" placeholder="Pesquisar cartas no mercado..."
@@ -160,7 +153,6 @@ const handleCreateTrade = async () => {
                 </div>
             </div>
 
-            <!-- Footer -->
             <div class="p-6 border-t border-dark/5 bg-surface flex justify-between items-center">
                 <BaseButton v-if="step === 2" variant="outline" @click="step = 1">
                     Voltar

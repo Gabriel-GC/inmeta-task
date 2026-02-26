@@ -35,8 +35,16 @@ const handleRegister = async () => {
             email: email.value,
             password: password.value
         });
-        toast.success('Conta criada com sucesso! Boas trocas.');
-        await router.push('/marketplace');
+
+        if (authStore.isAuthenticated) {
+            toast.success('Conta criada com sucesso! Bem-vindo ao Marketplace.');
+            
+            await router.replace('/marketplace');
+        } else {
+            router.push('/login');
+            toast.success('Conta criada! Por favor, faça login para acessar.');
+        }
+
     } catch (err: any) {
         error.value = err.response?.data?.message || 'Erro ao criar conta. Tente novamente.';
     }
@@ -82,21 +90,3 @@ const handleRegister = async () => {
         </div>
     </div>
 </template>
-
-<style scoped>
-.animate-fade-in {
-    animation: fadeIn 0.5s ease-out;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-</style>
