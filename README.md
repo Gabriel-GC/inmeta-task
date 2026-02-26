@@ -4,7 +4,8 @@ LINK DO PROJETO: https://marketplace-task.netlify.app/
 
 Este é um MVP de um Marketplace de Troca de Cartas (TCG) desenvolvido como teste técnico. O projeto utiliza tecnologias modernas de front-end para garantir performance, tipagem estrita e uma experiência de usuário fluida, com design inspirado na identidade visual da **InMeta**.
 
-## 🚀 Tecnologias Utilizadas
+
+## Tecnologias Utilizadas
 
 - **Framework:** Vue 3 (Vite + Composition API + `<script setup>`)
 - **Linguagem:** TypeScript (Interfaces e Tipagem Estrita)
@@ -15,7 +16,8 @@ Este é um MVP de um Marketplace de Troca de Cartas (TCG) desenvolvido como test
 - **Testes:** Vitest + Vue Test Utils
 - **Validação:** Zod (Esquemas de dados)
 
-## 🛠️ Estrutura do Projeto
+
+## Estrutura do Projeto
 
 ```text
 src/
@@ -29,7 +31,21 @@ src/
 └── main.ts       # Inicialização da App e Plugins
 ```
 
-## ✨ Funcionalidades
+## Especificações Funcionais
+
+| Requisito | Status | Observações |
+| :--- | :---: | :--- |
+| **Registrar Usuário** | ✅ | Implementado com validação Zod e feedback via Toast. |
+| **Login de Usuário** | ✅ | Autenticação JWT com persistência no Pinia. |
+| **Adicionar Cartas à Conta** | ✅ | Interface "My Collection" permite gerenciar inventário. |
+| **Criar Solicitação de Troca** | ✅ | Sistema de 2 passos (Oferta -> Demanda) intuitivo. |
+| **Escolher Cartas Oferecidas** | ✅ | Multiseleção de cartas da própria coleção. |
+| **Escolher Cartas Recebidas** | ✅ | Busca global e seleção em todo o catálogo da API. |
+| **Deletar Solicitações** | ✅ | Botão de exclusão disponível em "Minhas Propostas". |
+| **Página Inicial (Marketplace)** | ✅ | Feed público de trocas aberto para visitantes e logados. |
+
+
+## Funcionalidades
 
 1.  **Autenticação Completa:** Cadastro e Login com persistência de sessão via JWT e Pinia Persisted State.
 2.  **Gestão de Coleção:** Adição de novas cartas ao inventário e visualização de cartas já possuídas.
@@ -38,20 +54,32 @@ src/
 5.  **Design "TCG Premium":** Interface inspirada em jogos de cartas modernos, com efeitos de profundidade, bordas suaves e paleta vibrante.
 6.  **Resiliência:** Tratamento de erros de rede, 401 (Unauthorized) automático e feedback visual via `vue-sonner`.
 
-## 🧠 Arquitetura de Estado (Pinia)
+### Extras
+
+1.  **Deploy Automático**: Disponível em [marketplace-task.netlify.app](https://marketplace-task.netlify.app/).
+2.  **Performance & Cache**:
+    - Uso de `debounce` na busca global de cartas.
+    - Persistência de estado para evitar re-logins desnecessários.
+    - Skeletons de carregamento para melhor LCP (Largest Contentful Paint).
+3.  **Testes**: Suíte de testes unitários com Vitest para garantir estabilidade da lógica de negócio.
+
+
+## Arquitetura de Estado (Pinia)
 
 O projeto utiliza o Pinia para gerenciar o estado global de forma modular:
 - **`authStore`**: Gerencia o usuário logado, token JWT e estado de autenticação. Os dados são persistidos no `localStorage`.
 - **`cardsStore`**: Controla o inventário do usuário e as cartas disponíveis no sistema.
 - **`tradesStore`**: Gerencia a lista global de propostas e o estado de criação de novas trocas.
 
-## 📡 Integração com API
+
+## Integração com API
 
 A comunicação é feita via Axios, centralizada em `src/api/client.ts`.
 - **Base URL**: `https://cards-marketplace-api.onrender.com`
 - **Interceptors**: Adiciona automaticamente o token Bearer em cada requisição e redireciona para o login caso o token expire.
 
-## 🏁 Scripts Disponíveis
+
+## Scripts Disponíveis
 
 | Script | Descrição |
 | :--- | :--- |
@@ -60,7 +88,8 @@ A comunicação é feita via Axios, centralizada em `src/api/client.ts`.
 | `npm run preview` | Serve o build de produção localmente |
 | `npm run test` | Executa a suíte de testes unitários e de integração (Vitest) |
 
-## ⚙️ Como Rodar o Projeto
+
+## Como Rodar o Projeto
 
 1.  Clone o repositório e acesse o diretório:
     ```bash
