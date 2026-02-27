@@ -10,11 +10,10 @@ Este é um MVP de um Marketplace de Troca de Cartas (TCG) desenvolvido como test
 - **Framework:** Vue 3 (Vite + Composition API + `<script setup>`)
 - **Linguagem:** TypeScript (Interfaces e Tipagem Estrita)
 - **Estado:** Pinia (Store modular com persistência)
-- **Estilo:** Tailwind CSS (Arquitetura utilitária e branding InMeta)
-- **API:** Axios (Interceptors para JWT e tratamento global de erros)
-- **Ícones:** Lucide Vue Next
+- **Styling:** Tailwind CSS (Arquitetura utilitária e branding InMeta)
+- **UI & Animações:** Splide (Carousel), Lucide Vue Next (Ícones)
+- **Utilidades:** VueUse (`useInfiniteScroll`), Axios (API), Zod (Validação)
 - **Testes:** Vitest + Vue Test Utils
-- **Validação:** Zod (Esquemas de dados)
 
 
 ## Estrutura do Projeto
@@ -22,46 +21,45 @@ Este é um MVP de um Marketplace de Troca de Cartas (TCG) desenvolvido como test
 ```text
 src/
 ├── api/          # Serviços e instância Axios (Interceptors)
-├── components/   # Componentes de UI (Botões, Cards, Modais) e Domínio
-├── router/       # Configuração do Vue Router e Navigation Guards
+├── components/   # Componentes de UI e Domínio (Modais, Cards, Form)
+├── composables/  # Lógica reutilizável (Infinite Scroll)
+├── router/       # Configuração do Vue Router
 ├── store/        # Gerenciamento de estado global com Pinia
-├── types/        # Definições de interfaces TypeScript globais
-├── views/        # Páginas principais (Marketplace, Login, My Collection, etc.)
-├── App.vue       # Componente raiz com Layout e Toast
-└── main.ts       # Inicialização da App e Plugins
+├── types/        # Definições de interfaces TypeScript
+├── views/        # Páginas principais do Marketplace
+├── App.vue       # Componente raiz
+└── main.ts       # Inicialização da App
 ```
 
 ## Especificações Funcionais
 
 | Requisito | Status | Observações |
 | :--- | :---: | :--- |
-| **Registrar Usuário** | ✅ | Implementado com validação Zod e feedback via Toast. |
-| **Login de Usuário** | ✅ | Autenticação JWT com persistência no Pinia. |
-| **Adicionar Cartas à Conta** | ✅ | Interface "My Collection" permite gerenciar inventário. |
-| **Criar Solicitação de Troca** | ✅ | Sistema de 2 passos (Oferta -> Demanda) intuitivo. |
-| **Escolher Cartas Oferecidas** | ✅ | Multiseleção de cartas da própria coleção. |
-| **Escolher Cartas Recebidas** | ✅ | Busca global e seleção em todo o catálogo da API. |
-| **Deletar Solicitações** | ✅ | Botão de exclusão disponível em "Minhas Propostas". |
-| **Página Inicial (Marketplace)** | ✅ | Feed público de trocas aberto para visitantes e logados. |
+| **Registrar Usuário** | ✅ | Validação Zod e feedback via Toast. |
+| **Login de Usuário** | ✅ | Autenticação JWT com persistência. |
+| **Adicionar Cartas** | ✅ | Multi-seleção e vínculo com a coleção do usuário. |
+| **Biblioteca Global** | ✅ | Navegação via **Infinite Scroll** e busca otimizada. |
+| **Criar Solicitação** | ✅ | Fluxo intuitivo de 2 passos (Oferta -> Demanda). |
+| **Escolher Ofertas** | ✅ | Seleção múltipla de cartas da própria coleção. |
+| **Escolher Demandas** | ✅ | Busca global em todo o catálogo da API. |
+| **Gestão de Trocas** | ✅ | Visualização e exclusão de propostas criadas. |
+| **Marketplace** | ✅ | Feed público de trocas com curadoria de banners. |
 
 
-## Funcionalidades
+## Funcionalidades de Destaque
 
-1.  **Autenticação Completa:** Cadastro e Login com persistência de sessão via JWT e Pinia Persisted State.
-2.  **Gestão de Coleção:** Adição de novas cartas ao inventário e visualização de cartas já possuídas.
-3.  **Marketplace Global:** Listagem em tempo real de todas as trocas propostas pela comunidade.
-4.  **Sistema de Trocas:** Fluxo guiado para criação de propostas (escolha de oferta e demanda).
-5.  **Design "TCG Premium":** Interface inspirada em jogos de cartas modernos, com efeitos de profundidade, bordas suaves e paleta vibrante.
-6.  **Resiliência:** Tratamento de erros de rede, 401 (Unauthorized) automático e feedback visual via `vue-sonner`.
+1.  **Banner de Promoções**: Carousel interativo na home para anúncios e destaques da plataforma (Splide).
+2.  **Infinite Scroll**: Carregamento fluido de cartas na biblioteca global, evitando paginação manual exaustiva.
+3.  **Seleção Múltipla**: UI otimizada para adicionar ou oferecer múltiplas cartas simultaneamente com feedback visual em tempo real.
+4.  **Design "TCG Premium"**: Interface moderna com efeito blur (glassmorphism), paleta de cores harmoniosa e micro-animações.
+5.  **Resiliência & UX**: Skeletons de carregamento inteligentes, tratamento de erros global e persistência de sessão.
 
-### Extras
+### Extras Técnicos
 
-1.  **Deploy Automático**: Disponível em [marketplace-task.netlify.app](https://marketplace-task.netlify.app/).
-2.  **Performance & Cache**:
-    - Uso de `debounce` na busca global de cartas.
-    - Persistência de estado para evitar re-logins desnecessários.
-    - Skeletons de carregamento para melhor LCP (Largest Contentful Paint).
-3.  **Testes**: Suíte de testes unitários com Vitest para garantir estabilidade da lógica de negócio.
+1.  **Workaround de Contagem**: Sistema de sincronização inteligente para exibir o total de trocas disponíveis, contornando limitações da API.
+2.  **Performance**: Uso de `debounce` nas buscas e otimização de renderização com componentes funcionais.
+3.  **Deploy Contínuo**: Disponível publicamente via Netlify.
+4.  **Qualidade de Código**: Suíte de testes unitários com Vitest garantindo a estabilidade das stores e serviços.
 
 
 ## Arquitetura de Estado (Pinia)
