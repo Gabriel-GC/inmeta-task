@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref, watch, computed, onMounted } from 'vue';
+import { ref, watch, computed, onMounted, onUnmounted, nextTick } from 'vue';
 import { useCardStore } from '@/store/cards';
 import { useTradeStore } from '@/store/trades';
 import CardItem from './CardItem.vue';
 import BaseButton from './BaseButton.vue';
-import { X, ArrowRightLeft, Search } from 'lucide-vue-next';
+import { X, ArrowRightLeft, Search, RefreshCcw, Sparkles } from 'lucide-vue-next';
 import { toast } from 'vue-sonner';
 import type { Card } from '@/types';
 import { debounce } from 'lodash-es';
@@ -19,6 +19,7 @@ const selectedOffering = ref<string[]>([]);
 const selectedReceiving = ref<string[]>([]);
 const searchTerm = ref('');
 const debouncedSearchTerm = ref('');
+const loader = ref<HTMLElement | null>(null);
 
 const updateSearch = debounce((val: string) => {
     debouncedSearchTerm.value = val;
@@ -26,20 +27,37 @@ const updateSearch = debounce((val: string) => {
 
 const error = ref<string | null>(null);
 
+watch(searchTerm, (newVal) => {
+    updateSearch(newVal);
+});
+
+watch(step, async (newStep) => {
+    if (newStep === 2) {
+        await nextTick();
+        if (loader.value) {
+            observer.observe(loader.value);
+        }
+    }
+});
+
+const observer = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting && !cardStore.isLoading && cardStore.hasMoreGlobal) {
+        cardStore.fetchGlobalCards();
+    }
+}, { threshold: 0.1 });
+
 onMounted(async () => {
     try {
-        await Promise.all([
-            cardStore.fetchMyCards(),
-            cardStore.fetchGlobalCards()
-        ]);
+        await cardStore.fetchMyCards();
+        cardStore.fetchGlobalCards(true);
     } catch (err) {
         console.error("Erro ao carregar dados do modal:", err);
         error.value = "Não foi possível carregar as cartas. Tente novamente.";
     }
 });
 
-watch(searchTerm, (newVal) => {
-    updateSearch(newVal);
+onUnmounted(() => {
+    observer.disconnect();
 });
 
 const filteredGlobalCards = computed(() => {
@@ -149,6 +167,16 @@ const handleCreateTrade = async () => {
                         <CardItem v-for="card in filteredGlobalCards" :key="card.id" :card="card" selectable
                             :selected="selectedReceiving.includes(card.id)"
                             @select="toggleSelection(card.id, 'receiving')" />
+                    </div>
+
+                    <div ref="loader" class="flex justify-center py-4 w-full">
+                        <div v-if="cardStore.isLoading" class="flex items-center gap-2 text-primary">
+                            <RefreshCcw :size="20" class="animate-spin" />
+                            <span class="text-xs font-semibold uppercase tracking-wider">Carregando mais...</span>
+                        </div>
+                        <div v-else-if="!cardStore.hasMoreGlobal && filteredGlobalCards.length > 0" class="text-dark/30 text-xs font-semibold uppercase tracking-wider">
+                            Fim da biblioteca
+                        </div>
                     </div>
                 </div>
             </div>

@@ -71,7 +71,7 @@ onClickOutside(navTarget, () => {
                     </template>
                     <template v-else>
                         <router-link to="/login"
-                            class="px-6 py-2.5 bg-primary text-white font-bold rounded-xl hover:shadow-lg hover:shadow-primary/20 transition-all active:scale-95">
+                            class="px-6 py-2.5 bg-primary text-white font-bold rounded-full hover:shadow-lg hover:shadow-primary/20 transition-all active:scale-95">
                             Entrar
                         </router-link>
                     </template>
