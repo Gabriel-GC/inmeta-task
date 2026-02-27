@@ -1,5 +1,16 @@
 declare module '@splidejs/vue-splide' {
-    const Splide: any;
-    const SplideSlide: any;
-    export { Splide, SplideSlide };
+    import { DefineComponent } from 'vue';
+    const Splide: DefineComponent<{}, {}, any>;
+    const SplideSlide: DefineComponent<{}, {}, any>;
+    const VueSplide: {
+        install: (app: any) => void;
+    };
+    export { Splide, SplideSlide, VueSplide };
+    export default VueSplide;
 }
+
+declare module '@splidejs/vue-splide/css' {
+    const content: any;
+    export default content;
+}
+
