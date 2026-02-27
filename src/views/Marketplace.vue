@@ -73,7 +73,7 @@ onMounted(() => {
         <section class="rounded-3xl overflow-hidden shadow-2xl border border-white/10 relative group">
             <Splide :options="splideOptions" aria-label="MarketTask Promotions">
                 <SplideSlide v-for="banner in banners" :key="banner.id">
-                    <div class="relative h-[420px] md:h-[680px] w-full overflow-hidden">
+                    <div class="relative h-[420px] md:h-[560px] w-full overflow-hidden">
                         <picture class="absolute inset-0">
                             <source media="(min-width: 768px)" :srcset="banner.desktopImage" />
                             <img :src="banner.image" :alt="banner.title"
