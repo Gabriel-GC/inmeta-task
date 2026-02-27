@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useCardStore } from '@/store/cards';
+import { useInfiniteScroll } from '@/composables/useInfiniteScroll';
 import CardItem from './CardItem.vue';
 import BaseButton from './BaseButton.vue';
 import { X, Plus, Sparkles, Search, RefreshCcw, Info } from 'lucide-vue-next';
@@ -30,21 +31,14 @@ const selectCard = (card: any) => {
     }
 };
 
-const observer = new IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting && !cardStore.isLoading && cardStore.hasMoreGlobal) {
+useInfiniteScroll(loader, () => {
+    if (!cardStore.isLoading && cardStore.hasMoreGlobal) {
         cardStore.fetchGlobalCards();
-    }
-}, { threshold: 0.1 });
-
-onMounted(() => {
-    cardStore.fetchGlobalCards(true);
-    if (loader.value) {
-        observer.observe(loader.value);
     }
 });
 
-onUnmounted(() => {
-    observer.disconnect();
+onMounted(() => {
+    cardStore.fetchGlobalCards(true);
 });
 
 const handleAddCard = async () => {

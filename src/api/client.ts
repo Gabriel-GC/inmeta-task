@@ -6,7 +6,7 @@ const apiClient = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  timeout: 30000, 
+  timeout: 30000,
 });
 
 apiClient.interceptors.request.use(
@@ -28,9 +28,8 @@ apiClient.interceptors.response.use(
 
     if (status === 401) {
       localStorage.removeItem("token");
-      if (!window.location.pathname.includes("/login") && !window.location.pathname.includes("/register")) {
-        window.location.href = "/login";
-      }
+      // Notify application of 401
+      window.dispatchEvent(new CustomEvent('unauthorized'));
     } else if (status === 403) {
       toast.error("Você não tem permissão para realizar esta ação.");
     } else if (status >= 500) {

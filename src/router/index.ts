@@ -63,4 +63,13 @@ router.beforeEach(async (to, from, next) => {
   }
 });
 
+// Handle unauthorized event from API client
+window.addEventListener('unauthorized', () => {
+  const authStore = useAuthStore();
+  authStore.logout(); // Assuming logout clears state
+  if (router.currentRoute.value.path !== '/login' && router.currentRoute.value.path !== '/register') {
+    router.push('/login');
+  }
+});
+
 export default router;

@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { tradeService } from "@/api/trade.service";
+import { useAuthStore } from "@/store/auth";
 import type { Trade, CreateTradeDto } from "@/types";
 
 export const useTradeStore = defineStore("trades", () => {
@@ -37,9 +38,10 @@ export const useTradeStore = defineStore("trades", () => {
 
   async function updateTotalCount() {
     try {
-      // Fetch with a large RPP to get a better sense of the actual total
+      // Fetch with a reasonable RPP to get a sense of the actual total
       // This is a workaround for the missing 'total' field in the API
-      const response = await tradeService.listAll(1, 1000);
+      // Limited to 100 to avoid performance issues while still giving a good enough number for UX
+      const response = await tradeService.listAll(1, 100);
       totalTrades.value = response.list.length;
     } catch (err) {
       console.error("Erro ao atualizar contagem total:", err);
@@ -53,17 +55,18 @@ export const useTradeStore = defineStore("trades", () => {
       let page = 1;
       let more = true;
 
-      const authStore = (await import("@/store/auth")).useAuthStore();
+      const authStore = useAuthStore();
       const currentUserId = authStore.user?.id;
 
       if (!currentUserId) return;
 
       while (more) {
-        const response = await tradeService.listAll(page, 100);
+        const response = await tradeService.listAll(page, 50);
         allTrades.push(...response.list);
         more = response.more;
         page++;
-        if (page > 20) break;
+        // Safety break to prevent infinite loops if 'more' is always true
+        if (page > 10) break;
       }
 
       myTrades.value = allTrades.filter(t => t.userId === currentUserId);
