@@ -22,7 +22,7 @@ const currentYear = new Date().getFullYear();
                         </span>
                     </router-link>
                     <p class="text-dark/60 text-sm leading-relaxed">
-                        A plataforma definitiva para troca e gerenciamento de ativos digitais. Segurança, transparência e facilidade em cada transação.<b>Confira os código:</b>
+                        A plataforma definitiva para troca e gerenciamento de ativos digitais. Segurança, transparência e facilidade em cada transação. <b>Confira o código:</b>
                     </p>
                     <div class="flex items-center justify-center md:justify-start gap-4">
                         <a target="_blank" href="https://www.linkedin.com/in/gabriel-gon%C3%A7alves-cunha-37347b305/pt/" class="p-2 rounded-lg bg-dark/5 text-dark/60 hover:bg-primary/10 hover:text-primary transition-all">
@@ -99,7 +99,7 @@ const currentYear = new Date().getFullYear();
 
             <div class="pt-8 border-t border-dark/5 flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="text-dark/40 text-sm font-medium">
-                    &copy; {{ currentYear }} InMeta. Todos os direitos reservados.
+                   Developed by: GABRIEL GC - {{ currentYear }} 
                 </p>
                 <div class="flex items-center gap-8">
                     <a href="#" class="text-dark/40 hover:text-dark/60 transition-colors text-sm font-medium">

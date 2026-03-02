@@ -150,7 +150,7 @@ onMounted(() => {
 
             <div v-if="tradeStore.hasMore" class="flex justify-center pt-8">
                 <BaseButton variant="outline" @click="tradeStore.loadMore" :disabled="tradeStore.isLoading"
-                    class="px-16 group h-14 rounded-2xl border-2 hover:bg-primary hover:text-white hover:border-primary transition-all">
+                    class="px-16 group h-14 rounded-2xl border-2 hover:bg-primary hover:border-primary transition-all">
                     {{ tradeStore.isLoading ? 'Carregando...' : 'Carregar mais' }}
                 </BaseButton>
             </div>

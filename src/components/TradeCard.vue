@@ -64,7 +64,7 @@ const closePreview = () => {
                         class="flex flex-col items-center w-[110px] gap-2 bg-primary/5 border border-primary/10 rounded-xl p-2 pr-2 cursor-pointer hover:bg-primary/10 transition-colors"
                         @click="openPreview(tc.card)" :title="tc.card.name">
                         <img :src="tc.card.imageUrl" class="w-24 aspect-[2/3] object-cover shadow-sm " />
-                        <span class="text-[8px] font-bold text-primary max-w-[80px] truncate">{{ tc.card.name }}</span>
+                        <span class="text-[8px] font-bold text-primary max-w-[80px] line-clamp-2 min-h-6">{{ tc.card.name }}</span>
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@ const closePreview = () => {
                         class="flex flex-col items-center w-[110px] gap-2 bg-secondary/5 border border-secondary/10 rounded-xl p-2 pr-2 cursor-pointer hover:bg-secondary/10 transition-colors"
                         @click="openPreview(tc.card)" :title="tc.card.name">
                         <img :src="tc.card.imageUrl" class="w-24 aspect-[2/3] object-cover shadow-sm " />
-                        <span class="text-[8px] font-bold text-secondary max-w-[80px] truncate">{{ tc.card.name
+                        <span class="text-[8px] font-bold text-secondary max-w-[80px] line-clamp-2 min-h-6">{{ tc.card.name
                             }}</span>
                     </div>
                 </div>
